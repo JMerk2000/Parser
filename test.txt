@@ -1,9 +1,4 @@
-while
 int
+while
 for
-do
-break
 procedure
-;
-<=
-++

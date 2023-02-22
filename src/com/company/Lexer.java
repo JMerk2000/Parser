@@ -44,7 +44,11 @@ public class Lexer {
 
         String word = "";
 
+
         List<String> cars = new ArrayList<String >();
+        //System.out.println(map.keySet());
+
+        //Write loop that reads from file char by char and adds to blank string. If blank string letters make up a word, add it to the arraylist
 
          String input = null;
         try {
@@ -54,9 +58,26 @@ public class Lexer {
 
             while (sc.hasNext()) {
                 input = sc.nextLine();
-                cars.add(input);
+
+                for (char c : input.toCharArray()) { //reads file character by character
+                    word = word + c;                 // Adds each character to an empty string
+                   // System.out.println(word);
+                    word = word.replaceAll("\\s", "");          //Removes spaces
+
+                    for (Map.Entry<String, String> entry : map.entrySet()){
+                        if(word.equals(entry.getKey())) {         //If word is found in empty string, add it to the ArrayList
+
+                            System.out.println("Found a matching key : " + word);
+                            cars.add(word);
+                            word = "";                       // Set string back to empty for next word
+                        }
+                    }
+
+                }
 
             }
+
+
             sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred");
@@ -68,8 +89,8 @@ public class Lexer {
             for(int i = 0; i <= cars.size()-1; i++){
                 iterator = cars.get(i);
 
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-                    if (entry.getKey().equals(iterator)) {
+                for (Map.Entry<String, String> entry : map.entrySet()) { //Iterate through map
+                    if (entry.getKey().equals(iterator)) {               // If key equals arraylist entry, print value of key
                         System.out.println(entry.getValue());
             }
 
