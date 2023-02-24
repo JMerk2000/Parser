@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Lexer {
-    public Lexer(String fileName) {}
 
     public static void Tokenize(String fileName){
 
         HashMap<String, String> map = new HashMap<String, String>();
+        String intPattern = "\\d+";
+        String varPattern = "[a-zA-Z]\\w*";
 
         map.put("if", "IF");
         map.put("for", "FOR");
@@ -41,6 +42,8 @@ public class Lexer {
         map.put("!", "NEG");
         map.put(",", "COMMA");
         map.put(";", "SEMI");
+        map.put("intNum","INT_CONST");
+        map.put("test", "IDENT");
 
         String word = "";
 
@@ -50,7 +53,7 @@ public class Lexer {
 
         //Write loop that reads from file char by char and adds to blank string. If blank string letters make up a word, add it to the arraylist
 
-         String input = null;
+         String input;
         try {
             File in = new File(fileName);
             Scanner sc = new Scanner(in);
@@ -61,21 +64,32 @@ public class Lexer {
 
                 for (char c : input.toCharArray()) { //reads file character by character
                     word = word + c;                 // Adds each character to an empty string
-                   // System.out.println(word);
+                    System.out.println(word);
                     word = word.replaceAll("\\s", "");          //Removes spaces
 
-                    for (Map.Entry<String, String> entry : map.entrySet()){
-                        if(word.equals(entry.getKey())) {         //If word is found in empty string, add it to the ArrayList
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        if (word.equals(entry.getKey())) {         //If word is found in empty string, add it to the ArrayList
 
                             System.out.println("Found a matching key : " + word);
                             cars.add(word);
                             word = "";                       // Set string back to empty for next word
+                        } else if (word.matches(intPattern)) {
+                            System.out.println("Found a matching key : " + word);
+                            word = "intNum";
+                            cars.add(word);
+                            word = "";
+                        /**} else if(word.matches(varPattern) && !word.equals(entry.getKey())){
+                            System.out.println("Found a matching key : " + word);
+                            word = "test";
+                            cars.add(word);
+                            word = ""; */
                         }
+
                     }
-
                 }
-
             }
+
+
 
 
             sc.close();
@@ -84,7 +98,7 @@ public class Lexer {
             e.printStackTrace();
         }
 
-            String iterator = null;
+            String iterator;
 
             for(int i = 0; i <= cars.size()-1; i++){
                 iterator = cars.get(i);
@@ -100,5 +114,6 @@ public class Lexer {
     }
 
 }
+
 
 
