@@ -1,0 +1,14 @@
+procedure (int )
+
+	for(int   = 0;  <; = ++) {
+		 =  * ( / 20);
+
+		if( >= 1000)
+			;
+		}
+
+	return;
+
+end
+
+int = 5;
