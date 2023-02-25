@@ -52,6 +52,7 @@ public class Lexer {
         //System.out.println(map.keySet());
 
         //Write loop that reads from file char by char and adds to blank string. If blank string letters make up a word, add it to the arraylist
+        // If the one before it is a + or equal sign...
 
          String input;
         try {
@@ -78,11 +79,11 @@ public class Lexer {
                             word = "intNum";
                             cars.add(word);
                             word = "";
-                        /**} else if(word.matches(varPattern) && !word.equals(entry.getKey())){
+                        } else if(word.matches(varPattern) && !word.equals(entry.getKey())){
                             System.out.println("Found a matching key : " + word);
                             word = "test";
                             cars.add(word);
-                            word = ""; */
+                            word = ""; 
                         }
 
                     }
